@@ -202,10 +202,13 @@ public class StatementTreeBuilder extends AbsIterable<Token> {
             default:
         }
         if (firstTokenType == TokenTypeEnum.VARIABLE || firstTokenType == TokenTypeEnum.STRING) {
-            // 方法调用
-            String raw = getItem().getRaw();
-            if (".".equals(raw) || "?".equals(raw)) {
-                item = this.cellExpressionBuild(item);
+            Token nextItem = getItem();
+            if(nextItem != null){
+                // 方法调用
+                String raw = nextItem.getRaw();
+                if (".".equals(raw) || "?".equals(raw)) {
+                    item = this.cellExpressionBuild(item);
+                }
             }
         }
         if (item != null) {
